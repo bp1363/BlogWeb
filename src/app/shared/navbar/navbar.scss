@@ -1,0 +1,49 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav {
+  background-color: cadetblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* helps keep spacing consistent */
+  padding: 0 10px;
+}
+
+.name {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Normal links visible on large screens */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Hide hamburger by default */
+.hamburger-menu {
+  display: none;
+  color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* hide normal links */
+  }
+
+  .hamburger-menu {
+    display: inline-flex; /* show hamburger menu on mobile */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="contact-container">
+  <div class="contact-box">
+
+    <div class="contact-left">
+      <h2>Get in Touch</h2>
+      <p class="subtitle">I'd like to hear from you!</p>
+      <p class="description">
+        If you have any inquiries or just want to say hi, please use the contact form!
+      </p>
+
+      <div class="contact-info">
+        <p>
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:kravinaw@gmail.com">kravinaw@gmail.com</a>
+        </p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/yourprofile" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.facebook.com/yourprofile" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/abhinaw-kumar-eco26" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contact-right">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="input-row">
+          <input type="text" placeholder="First Name" formControlName="firstName" />
+          <input type="text" placeholder="Last Name" formControlName="lastName" />
+        </div>
+
+        <input type="email" placeholder="Email *" formControlName="email" />
+        <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+          Please enter a valid email
+        </div>
+
+        <textarea placeholder="Message" rows="5" formControlName="message"></textarea>
+
+        <button type="submit" [disabled]="contactForm.invalid">Send</button>
+      </form>
+
+      <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+    </div>
+  </div>
+</div>

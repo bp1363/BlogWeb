@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="nav">
+  <span class="name" routerLink="/">Abhinaw</span>
+  <span class="spacer"></span>
+
+  <!-- Normal links for large screens -->
+  <div class="nav-links">
+   
+    <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
+     <a mat-button routerLink="/blog-list" routerLinkActive="active-link">Blogs</a>
+      <a mat-button routerLink="/qoutes" routerLinkActive="active-link">My Qoutes</a>
+    <a mat-button routerLink="/contact" routerLinkActive="active-link">Contact</a>
+    <!-- <a mat-button routerLink="/admin-blog" routerLinkActive="active-link">Admin Blog</a> -->
+  </div>
+
+  <!-- Hamburger menu for small screens -->
+  <button mat-icon-button class="hamburger-menu" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+     <button mat-menu-item routerLink="/about">About</button>
+    <button mat-menu-item routerLink="/blog-list">Blogs</button>
+    <button mat-menu-item routerLink="/qoutes">My Qoutes</button>
+    <button mat-menu-item routerLink="/contact">Contact</button>
+    <!-- <button mat-menu-item routerLink="/admin-blog">Admin Blog</button> -->
+  </mat-menu>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

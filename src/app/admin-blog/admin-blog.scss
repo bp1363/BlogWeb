@@ -1,0 +1,367 @@
+/* ==================== Body / Page Background ==================== */
+body {
+  background-color: #f8f6f3;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==================== Blogs Container ==================== */
+.blogs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 40px 20px;
+  max-width: 1800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ==================== Blog Card ==================== */
+.blog-card {
+  width: 225px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e6ded7;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(139, 69, 19, 0.15);
+  overflow: hidden;
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(139, 69, 19, 0.25);
+}
+
+/* ==================== Thumbnail ==================== */
+.blog-thumbnail {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 4px solid #8b4513;
+  margin-bottom: 12px;
+}
+
+/* ==================== Blog Content ==================== */
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #8b4513;
+  margin: 8px 0;
+}
+
+.blog-content .subtitle {
+  font-size: 0.85rem;
+  color: #6e4a2c;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.blog-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 0 0 16px;
+  word-wrap: break-word;
+}
+
+/* ==================== Blog Actions ==================== */
+.blog-actions {
+  margin-top: auto;           /* ✅ pushes it to the bottom in a flex column parent */
+  display: flex;
+  justify-content: flex-end;  /* ✅ buttons stay on right side */
+  gap: 75px;
+ padding: 9px 10px 12px;
+}
+
+
+.blog-actions .btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.blog-actions .btn.secondary {
+  background: #f8e7db;
+  color: #8b4513;
+  border: none;
+}
+
+.blog-actions .btn.secondary:hover {
+  background: #e0c3a6;
+}
+
+.blog-actions .btn.danger {
+  background: #d9534f;
+  color: #fff;
+  border: none;
+}
+
+.blog-actions .btn.danger:hover {
+  background: #c9302c;
+}
+
+.blog-actions .btn.primary {
+  background: #8b4513;
+  color: #fff;
+}
+
+.blog-actions .btn.primary:hover {
+  background: #a0522d;
+}
+
+/* ==================== Form Styles ==================== */
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+.blog-form input,
+.blog-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1b097;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.blog-form input:focus,
+.blog-form textarea:focus {
+  border-color: #8b4513;
+  box-shadow: 0 0 6px rgba(139, 69, 19, 0.3);
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.blog-form .btn {
+  width: 100px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1600px) {
+  .blogs-container {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1200px) {
+  .blog-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-card {
+    width: 90%;
+    margin: 0 auto 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-form input,
+  .blog-form textarea {
+    font-size: 14px;
+  }
+
+  .blog-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .blog-content p {
+    font-size: 0.95rem;
+  }
+}
+ 
+
+/* ==================== Quotes Container ==================== */
+.quotes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 40px 20px;
+  max-width: 1800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ==================== Quote Card ==================== */
+.quote-card {
+  width: 225px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e6ded7;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(139, 69, 19, 0.15);
+  overflow: hidden;
+}
+
+.quote-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(139, 69, 19, 0.25);
+}
+
+/* ==================== Quote Content ==================== */
+.quote-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 0 0 12px;
+  word-wrap: break-word;
+}
+
+.quote-content .subtitle {
+  font-size: 0.85rem;
+  color: #6e4a2c;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* ==================== Quote Actions ==================== */
+.quote-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.quote-actions .btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.quote-actions .btn.secondary {
+  background: #f8e7db;
+  color: #8b4513;
+  border: none;
+}
+
+.quote-actions .btn.secondary:hover {
+  background: #e0c3a6;
+}
+
+.quote-actions .btn.danger {
+  background: #d9534f;
+  color: #fff;
+  border: none;
+}
+
+.quote-actions .btn.danger:hover {
+  background: #c9302c;
+}
+
+.quote-actions .btn.primary {
+  background: #8b4513;
+  color: #fff;
+}
+
+.quote-actions .btn.primary:hover {
+  background: #a0522d;
+}
+
+/* ==================== Quote Form Styles ==================== */
+.quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.quote-form input,
+.quote-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1b097;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus {
+  border-color: #8b4513;
+  box-shadow: 0 0 6px rgba(139, 69, 19, 0.3);
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.quote-form .btn {
+  width: 100px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1200px) {
+  .quote-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .quote-card {
+    width: 90%;
+    margin: 0 auto 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quote-form input,
+  .quote-form textarea {
+    font-size: 14px;
+  }
+
+  .quote-content p {
+    font-size: 0.95rem;
+  }
+}

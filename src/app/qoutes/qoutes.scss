@@ -1,0 +1,59 @@
+.quotes-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.quote-card {
+  background: #fff3e6;
+  border: 2px solid #8b4513;
+  border-radius: 16px;
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 16px rgba(139, 69, 19, 0.15);
+  transition: all 0.3s ease;
+}
+
+.quote-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(139, 69, 19, 0.25);
+}
+
+.quote-content {
+  max-width: 80%;
+}
+
+.quote-content p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #6e4a2c;
+}
+
+.arrow {
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: #8b4513;
+  user-select: none;
+}
+
+.arrow:hover {
+  color: #a0522d;
+}
+
+.no-quotes {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #888;
+}
+.arrow.disabled {
+  opacity: 0.3;
+  pointer-events: none; /* ✅ no click when disabled */
+}
