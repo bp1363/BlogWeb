@@ -7,7 +7,7 @@ import { Blog } from '../models/blog.model';
   providedIn: 'root'
 })
 export class BlogService {
-  private apiUrl = 'http://localhost:5000/blogs';
+  private apiUrl = 'https://myblog-production-a3d4.up.railway.app/api/blogs';
 
   constructor(private http: HttpClient) {}
 
