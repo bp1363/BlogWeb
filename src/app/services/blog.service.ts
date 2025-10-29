@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Blog } from '../models/blog.model';
+import { environment } from '../../environment/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
-  private apiUrl = 'https://myblog-production-a3d4.up.railway.app/api/blogs';
+  private apiUrl = `${environment.apiUrl}/blogs`; // use environment variable
 
   constructor(private http: HttpClient) {}
 
@@ -22,12 +23,11 @@ export class BlogService {
   addBlog(blog: { title: string; content: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl, blog);
   }
-  // Update blog
+
   updateBlog(blog: Blog): Observable<Blog> {
     return this.http.put<Blog>(`${this.apiUrl}/${blog.id}`, blog);
   }
 
-  // Delete blog
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

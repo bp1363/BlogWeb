@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quote } from '../models/quote.model';
+import { environment } from '../../environment/environment.prod'; // import environment
 
 @Injectable({ providedIn: 'root' })
 export class QuotesService {
-  // Change this to your Railway backend URL
-  private apiUrl = 'https://myblog-production-a3d4.up.railway.app/api/quotes';
+  private apiUrl = `${environment.apiUrl}/quotes`; // use environment variable
 
   constructor(private http: HttpClient) {}
 
