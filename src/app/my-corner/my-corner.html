@@ -1,0 +1,10 @@
+<div class="corner-container">
+    <h2>PDF Resources</h2>
+    <div class="pdf-cards">
+      <div *ngFor="let pdf of pdfList" class="pdf-card">
+        <h3>{{ pdf.title }}</h3>
+        <a [href]="pdf.url" target="_blank" class="pdf-link">📁 View PDF</a>
+      </div>
+    </div>
+  </div>
+  

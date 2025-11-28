@@ -1,0 +1,48 @@
+.corner-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(139,69,19,0.15);
+    text-align: center;
+  }
+  
+  .corner-container h2 {
+    color: #8b4513;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .pdf-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .pdf-card {
+    width: 250px;
+    padding: 15px 20px;
+    background: #fff8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(139,69,19,0.1);
+    text-align: left;
+  }
+  
+  .pdf-card h3 {
+    font-size: 1.1rem;
+    color: #8b4513;
+    margin-bottom: 10px;
+  }
+  
+  .pdf-card a.pdf-link {
+    color: #8b4513;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .pdf-card a.pdf-link:hover {
+    text-decoration: underline;
+  }
+  

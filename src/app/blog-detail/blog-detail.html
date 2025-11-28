@@ -1,0 +1,17 @@
+<div class="container" *ngIf="blog">
+  <div class="wrap">
+  
+    <!-- <a routerLink="/blogs" class="back">← Back to All Blogs</a> -->
+    <span class="back material-symbols-outlined" (click)="goBack()">
+      arrow_circle_left
+      </span>
+    <h1 class="title">{{ blog.title }}</h1>
+    <p class="date">📅 Posted on: <br> {{ blog.createdAt | date:'medium' }}</p>
+  </div>
+ 
+  
+  <div class="content">
+    {{ blog.content }}
+  </div>
+ 
+</div>
