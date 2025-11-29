@@ -1,20 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql2/promise');
+
+const connectDB = require('../db');
 
 let db;
+
 (async () => {
-  db = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Brajpal@1363',
-    database: 'BlogDB',
-    port: 3306
-  });
-  console.log('✅ MySQL Connected (Blog)');
+  db = await connectDB();
 })();
 
-// Get all blogs
+
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM blogs ORDER BY createdAt DESC');
@@ -25,7 +20,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get blog by ID
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -38,7 +33,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create blog
+
 router.post('/', async (req, res) => {
   const { title, content } = req.body;
   if (!title || !content) return res.status(400).json({ message: 'Title and content required' });
@@ -52,7 +47,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update blog
+
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
@@ -68,7 +63,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete blog
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {

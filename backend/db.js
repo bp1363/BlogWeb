@@ -1,9 +1,9 @@
-// server/db.js
+
 const mysql = require('mysql2/promise');
 
 let db;
 async function connectDB() {
-  if (db) return db; // Reuse connection
+  if (db) return db; 
   db = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
