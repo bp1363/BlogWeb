@@ -4,14 +4,21 @@ const path = require('path');
 const corsMiddleware = require('./middlewares/cors.middleware');
 const bodyParserMiddleware = require('./middlewares/body-parser.middleware');
 
+
+
+
 const blogRoutes = require('./routes/blog.routes');
 const quoteRoutes = require('./routes/quote.routes');
 const pdfRoutes = require('./routes/pdf.routes');
 const app = express();
 
 
+
 app.use(corsMiddleware);
 app.use(bodyParserMiddleware);
+
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 
 app.use('/blogs', blogRoutes);

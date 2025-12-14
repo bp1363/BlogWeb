@@ -14,9 +14,10 @@ import { PdfDocument, ServicePdf } from '../services/service.pdf';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-blog.html',
-  styleUrls: ['./admin-blog.scss']
+  styleUrls: ['./admin-blog.scss'],
 })
 export class AdminBlogComponent implements OnInit {
+
   // BLOG
   blogs: Blog[] = [];
   title = '';
@@ -29,31 +30,29 @@ export class AdminBlogComponent implements OnInit {
   quoteAuthor = '';
   editQuoteData: Quote | null = null;
 
-  // pdf
+  // PDF / Image / Video
   pdfForm: PdfDocument = { title: '', url: '' };
   pdfList: PdfDocument[] = [];
   editPdfData: PdfDocument | null = null;
 
-
-
-  constructor(private blogService: BlogService, private quotesService: QuotesService,
-    private ErrorLoggingService : ErrorLoggingService , private servicePdf : ServicePdf
-) {
-  // const ls= new ErrorLoggingService();
-  // ls.getError();
-   this.ErrorLoggingService.getError()
-
-}
+  constructor(
+    private blogService: BlogService,
+    private quotesService: QuotesService,
+    private errorLoggingService: ErrorLoggingService,
+    private servicePdf: ServicePdf
+  ) {
+    this.errorLoggingService.getError();
+  }
 
   ngOnInit(): void {
     this.loadBlogs();
     this.loadQuotes();
-    this.loadPdfs() ;
+    this.loadPdfs();
   }
 
   // ===== BLOG METHODS =====
   loadBlogs() {
-    this.blogService.getBlogs().subscribe(data => this.blogs = data);
+    this.blogService.getBlogs().subscribe((data) => (this.blogs = data));
   }
 
   saveBlog() {
@@ -85,12 +84,11 @@ export class AdminBlogComponent implements OnInit {
 
   // ===== QUOTE METHODS =====
   loadQuotes() {
-    this.quotesService.getQuotes().subscribe(data => this.quotes = data);
+    this.quotesService.getQuotes().subscribe((data) => (this.quotes = data));
   }
 
   saveQuote() {
     if (!this.quoteText || !this.quoteAuthor) return;
-
     if (this.editQuoteData) {
       this.quotesService.updateQuote(this.editQuoteData.id, { text: this.quoteText, author: this.quoteAuthor })
         .subscribe(() => { this.loadQuotes(); this.resetQuoteForm(); });
@@ -116,46 +114,52 @@ export class AdminBlogComponent implements OnInit {
     this.editQuoteData = null;
   }
 
-// Load PDFs
-loadPdfs() {
-  this.servicePdf.getAllPdfs().subscribe(data => this.pdfList = data);
-}
-
-savePdf() {
-  if (!this.pdfForm.title || !this.pdfForm.url) return alert("Enter both title and link");
-
-  if (this.editPdfData) {
-    // Update existing PDF
-    this.servicePdf.updatePdf(this.editPdfData.id!, this.pdfForm).subscribe(() => {
-      this.resetForm();
-      this.loadPdfs();
-    });
-  } else {
-    // Add new PDF
-    this.servicePdf.addPdf(this.pdfForm).subscribe(() => {
-      this.resetForm();
-      this.loadPdfs();
-    });
+  // ===== PDF / IMAGE / VIDEO METHODS =====
+  loadPdfs() {
+    this.servicePdf.getAllPdfs().subscribe((data) => (this.pdfList = data));
   }
-}
 
+  savePdf() {
+    if (!this.pdfForm.title || !this.pdfForm.url) return alert('Enter both title and URL');
 
-deletePdf(id: number) {
-  if (confirm("Are you sure you want to delete this PDF?")) {
-    this.servicePdf.deletePdf(id).subscribe(() => this.loadPdfs());
+    if (this.editPdfData) {
+      // UPDATE
+      this.servicePdf.updatePdf(this.editPdfData.id!, this.pdfForm).subscribe(() => {
+        this.resetPdfForm();
+        this.loadPdfs();
+      });
+    } else {
+      // ADD NEW
+      this.servicePdf.addPdf(this.pdfForm).subscribe(() => {
+        this.resetPdfForm();
+        this.loadPdfs();
+      });
+    }
   }
-}
 
-editPdf(pdf: PdfDocument) {
-  this.editPdfData = pdf;
-  this.pdfForm = { ...pdf };
-}
+  editPdf(pdf: PdfDocument) {
+    this.editPdfData = pdf;
+    this.pdfForm = { ...pdf };
+  }
 
-resetForm() {
-  this.pdfForm = { title: '', url: '' };
-  this.editPdfData = null;
-  
-}
+  deletePdf(id: number) {
+    if (confirm('Are you sure you want to delete this item?')) {
+      this.servicePdf.deletePdf(id).subscribe(() => this.loadPdfs());
+    }
+  }
 
-  
+  resetPdfForm() {
+    this.pdfForm = { title: '', url: '' };
+    this.editPdfData = null;
+  }
+
+  getFileType(url: string): string {
+    const ext = url.split('.').pop()?.toLowerCase();
+    if (!ext) return 'Other';
+    if (['pdf'].includes(ext)) return 'PDF';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return 'Image';
+    if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) return 'Video';
+    return 'Other';
+  }
+
 }

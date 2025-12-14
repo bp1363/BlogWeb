@@ -109,26 +109,14 @@
 <div class="container">
   <h2>{{ editPdfData ? 'Edit PDF' : 'Add PDF' }}</h2>
   <form class="blog-form" (ngSubmit)="savePdf()">
-    <input
-      type="text"
-      [(ngModel)]="pdfForm.title"
-      name="title"
-      placeholder="Enter PDF Title"
-      required
-    />
-    <input
-      type="text"
-      [(ngModel)]="pdfForm.url"
-      name="url"
-      placeholder="Enter PDF Link"
-      required
-    />
+    <input type="text" [(ngModel)]="pdfForm.title" name="title" placeholder="Enter title" required />
+    <input type="text" [(ngModel)]="pdfForm.url" name="url" placeholder="Enter file URL" required />
 
     <div class="form-actions">
       <button type="submit" class="btn primary">
         {{ editPdfData ? 'Update' : 'Add' }}
       </button>
-      <button type="button" class="btn secondary" (click)="resetForm()">
+      <button type="button" class="btn secondary" (click)="resetPdfForm()">
         Cancel
       </button>
     </div>
@@ -136,23 +124,35 @@
 </div>
 
 <!-- PDF List -->
-<div class="blogs-container">
-  <div *ngFor="let pdf of pdfList" class="blog-card">
+<<div class="blogs-container">
+  <div *ngFor="let file of pdfList" class="blog-card">
+    
     <div class="blog-content">
-      <h3>{{ pdf.title }}</h3>
+      <h3>{{ file.title }}</h3>
+
       <div class="subtitle">
-        <a [href]="pdf.url" target="_blank" class="pdf-link">📁 View PDF</a>
+        <ng-container [ngSwitch]="getFileType(file.url)">
+          
+          <!-- PDF -->
+          <a *ngSwitchCase="'PDF'" [href]="file.url" target="_blank" class="pdf-link">📄 View PDF</a>
+
+          <!-- Image -->
+          <a *ngSwitchCase="'Image'" [href]="file.url" target="_blank" class="pdf-link">🖼️ View Image</a>
+
+          <!-- Video -->
+          <a *ngSwitchCase="'Video'" [href]="file.url" target="_blank" class="pdf-link">🎬 View Video</a>
+
+          <!-- Others -->
+          <a *ngSwitchDefault [href]="file.url" target="_blank" class="pdf-link">📁 Open File</a>
+
+        </ng-container>
       </div>
     </div>
+
     <div class="blog-actions">
-      <button class="btn secondary" (click)="editPdf(pdf)">Edit</button>
-      <button
-        class="btn danger"
-        *ngIf="pdf.id !== undefined"
-        (click)="deletePdf(pdf.id!)"
-      >
-        Delete
-      </button>
+      <button class="btn secondary" (click)="editPdf(file)">Edit</button>
+      <button class="btn danger" (click)="deletePdf(file.id!)">Delete</button>
     </div>
+
   </div>
 </div>

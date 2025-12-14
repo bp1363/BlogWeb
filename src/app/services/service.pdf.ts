@@ -16,12 +16,12 @@ export class ServicePdf {
 
   constructor(private http: HttpClient) {}
 
-  getAllPdfs(): Observable<PdfDocument[]> {
-    return this.http.get<PdfDocument[]>(`${this.baseUrl}/list`);
-  }
-
   addPdf(pdf: PdfDocument): Observable<PdfDocument> {
     return this.http.post<PdfDocument>(`${this.baseUrl}/add`, pdf);
+  }
+
+  getAllPdfs(): Observable<PdfDocument[]> {
+    return this.http.get<PdfDocument[]>(`${this.baseUrl}/list`);
   }
 
   updatePdf(id: number, pdf: PdfDocument): Observable<PdfDocument> {

@@ -1,10 +1,52 @@
-<div class="corner-container">
-    <h2>PDF Resources</h2>
-    <div class="pdf-cards">
-      <div *ngFor="let pdf of pdfList" class="pdf-card">
-        <h3>{{ pdf.title }}</h3>
-        <a [href]="pdf.url" target="_blank" class="pdf-link">📁 View PDF</a>
-      </div>
-    </div>
+<div class="layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3 class="sidebar-title">📁 All Files</h3>
+
+    <input
+      type="text"
+      placeholder="Filter files..."
+      class="filter-input"
+      [(ngModel)]="filterText"
+    />
+
+    <ul class="file-list">
+      <li
+        *ngFor="let file of filteredFiles()"
+        (click)="selectFile(file)"
+        [class.active]="selectedFile?.id === file.id"
+      >
+        <span class="file-icon">{{ getFileIcon(file.url) }}</span>
+        <span class="file-text">{{ file.title }}</span>
+      </li>
+    </ul>
   </div>
-  
+
+  <!-- Right content -->
+  <div class="content">
+    <h2>My Files</h2>
+
+    <div *ngIf="selectedFile; else noFileSelected" class="selected-file-box">
+
+      <h3>{{ selectedFile.title }}</h3>
+
+      <!-- Preview based on file type -->
+      <ng-container [ngSwitch]="getFileType(selectedFile.url)">
+        <iframe *ngSwitchCase="'PDF Document'" [src]="safeUrl" class="file-preview"></iframe>
+        <img *ngSwitchCase="'Image'" [src]="getFullUrl(selectedFile.url)" class="file-preview"/>
+        <video *ngSwitchCase="'Video'" [src]="getFullUrl(selectedFile.url)" controls class="file-preview"></video>
+        <a *ngSwitchDefault [href]="getFullUrl(selectedFile.url)" target="_blank" class="view-btn">
+          📄 Open File
+        </a>
+      </ng-container>
+
+      <p class="file-type">{{ getFileType(selectedFile.url) }}</p>
+    </div>
+
+    <ng-template #noFileSelected>
+      <p class="placeholder">Select a file from the left to view it here.</p>
+    </ng-template>
+  </div>
+
+</div>
