@@ -1,9 +1,29 @@
-<!-- ================= ADMIN BLOG PAGE ================= -->
+<!-- ================= ADMIN BLOG PAGE WITH RADIO TOGGLE & CARDS ================= -->
 
 <div class="admin-wrapper">
 
-  <!-- ========== BLOG SECTION ========== -->
+  <!-- ========== SECTION TO SELECT TYPE ========== -->
   <section class="admin-section">
+    <h2 class="section-title">Select Content Type</h2>
+
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="contentType" [(ngModel)]="selectedType" value="blog" />
+        Blog
+      </label>
+      <label>
+        <input type="radio" name="contentType" [(ngModel)]="selectedType" value="quote" />
+        Quote
+      </label>
+      <label>
+        <input type="radio" name="contentType" [(ngModel)]="selectedType" value="file" />
+        File
+      </label>
+    </div>
+  </section>
+
+  <!-- ========== BLOG SECTION ========== -->
+  <section class="admin-section" *ngIf="selectedType === 'blog'">
     <h2 class="section-title">{{ editBlogData ? 'Edit Blog' : 'Add Blog' }}</h2>
 
     <form class="form-box" (ngSubmit)="saveBlog()">
@@ -37,6 +57,7 @@
       </div>
     </form>
 
+    <!-- Blog Cards -->
     <div class="cards-container">
       <div class="card" *ngFor="let blog of blogs">
         <h3>{{ blog.title }}</h3>
@@ -52,7 +73,7 @@
   </section>
 
   <!-- ========== QUOTE SECTION ========== -->
-  <section class="admin-section">
+  <section class="admin-section" *ngIf="selectedType === 'quote'">
     <h2 class="section-title">{{ editQuoteData ? 'Edit Quote' : 'Add Quote' }}</h2>
 
     <form class="form-box" (ngSubmit)="saveQuote()">
@@ -86,6 +107,7 @@
       </div>
     </form>
 
+    <!-- Quote Cards -->
     <div class="cards-container">
       <div class="card quote-card" *ngFor="let quote of quotes">
         <p>"{{ quote.text }}"</p>
@@ -100,7 +122,7 @@
   </section>
 
   <!-- ========== PDF / FILE SECTION ========== -->
-  <section class="admin-section">
+  <section class="admin-section" *ngIf="selectedType === 'file'">
     <h2 class="section-title">{{ editPdfData ? 'Edit File' : 'Add File' }}</h2>
 
     <form class="form-box" (ngSubmit)="savePdf()">
@@ -134,6 +156,7 @@
       </div>
     </form>
 
+    <!-- PDF / File Cards -->
     <div class="cards-container">
       <div class="card" *ngFor="let file of pdfList">
         <h3>{{ file.title }}</h3>

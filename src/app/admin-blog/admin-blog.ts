@@ -35,6 +35,8 @@ export class AdminBlogComponent implements OnInit {
   pdfList: PdfDocument[] = [];
   editPdfData: PdfDocument | null = null;
 
+  selectedType: 'blog' | 'quote' | 'file' = 'blog'; // default selection
+
   constructor(
     private blogService: BlogService,
     private quotesService: QuotesService,
