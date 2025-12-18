@@ -19,23 +19,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // ===== ADD PDF (with file upload) =====
-router.post('/add', upload.single('file'), async (req, res) => {
-  const { title } = req.body;
-  const file = req.file;
+router.post('/add', async (req, res) => {
+  const { title, url } = req.body;
 
-  if (!title || !file)
-    return res.status(400).json({ message: 'Title and file required' });
-
-  const fileUrl = `/uploads/${file.filename}`; // URL to store in DB
+  if (!title || !url)
+    return res.status(400).json({ message: 'Title and URL required' });
 
   try {
     const [result] = await db.query(
       'INSERT INTO pdf_links (title, url) VALUES (?, ?)',
-      [title, fileUrl]
+      [title, url]
     );
-    res.status(201).json({ id: result.insertId, title, url: fileUrl });
+    res.status(201).json({ id: result.insertId, title, url });
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 });

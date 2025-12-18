@@ -1,13 +1,19 @@
 <div class="layout">
 
   <!-- Sidebar -->
-  <div class="sidebar">
-    <h3 class="sidebar-title">📁 All Files</h3>
+  <div class="sidebar" [class.closed]="!sidebarOpen">
+    <div class="sidebar-header">
+      <h3 class="sidebar-title" *ngIf="sidebarOpen">📁 All Corner</h3>
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        {{ sidebarOpen ? '⬅' : '➡' }}
+      </button>
+    </div>
 
     <input
+      *ngIf="sidebarOpen"
       type="text"
-      placeholder="Filter files..."
       class="filter-input"
+      placeholder="Filter files..."
       [(ngModel)]="filterText"
     />
 
@@ -18,35 +24,67 @@
         [class.active]="selectedFile?.id === file.id"
       >
         <span class="file-icon">{{ getFileIcon(file.url) }}</span>
-        <span class="file-text">{{ file.title }}</span>
+        <span class="file-text" *ngIf="sidebarOpen">{{ file.title }}</span>
       </li>
     </ul>
   </div>
 
-  <!-- Right content -->
+  <!-- Content -->
   <div class="content">
-    <h2>My Files</h2>
+    <h2>My Corner</h2>
 
     <div *ngIf="selectedFile; else noFileSelected" class="selected-file-box">
 
       <h3>{{ selectedFile.title }}</h3>
 
-      <!-- Preview based on file type -->
       <ng-container [ngSwitch]="getFileType(selectedFile.url)">
-        <iframe *ngSwitchCase="'PDF Document'" [src]="safeUrl" class="file-preview"></iframe>
-        <img *ngSwitchCase="'Image'" [src]="getFullUrl(selectedFile.url)" class="file-preview"/>
-        <video *ngSwitchCase="'Video'" [src]="getFullUrl(selectedFile.url)" controls class="file-preview"></video>
-        <a *ngSwitchDefault [href]="getFullUrl(selectedFile.url)" target="_blank" class="view-btn">
-          📄 Open File
-        </a>
+
+        <!-- PDF Preview (click → new tab) -->
+        <iframe
+          *ngSwitchCase="'PDF Document'"
+          [src]="safeUrl"
+          class="file-preview clickable"
+          (click)="openInNewTab(selectedFile.url)"
+        ></iframe>
+
+        <!-- Image Preview (click → new tab) -->
+        <img
+          *ngSwitchCase="'Image'"
+          [src]="selectedFile.url"
+          class="file-preview clickable"
+          (click)="openInNewTab(selectedFile.url)"
+        />
+
+        <!-- Video Preview (click → new tab) -->
+        <video
+          *ngSwitchCase="'Video'"
+          [src]="selectedFile.url"
+          controls
+          class="file-preview clickable"
+          (click)="openInNewTab(selectedFile.url)"
+        ></video>
+        
+
+        <!-- Other files (no preview, click → new tab) -->
+        <div
+          *ngSwitchDefault
+          class="file-preview file-placeholder clickable"
+          (click)="openInNewTab(selectedFile.url)"
+        >
+          📄 Click to open file
+        </div>
+
       </ng-container>
 
       <p class="file-type">{{ getFileType(selectedFile.url) }}</p>
     </div>
 
     <ng-template #noFileSelected>
-      <p class="placeholder">Select a file from the left to view it here.</p>
+      <p class="placeholder">
+       
+      </p>
     </ng-template>
+
   </div>
 
 </div>

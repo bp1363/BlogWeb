@@ -1,158 +1,158 @@
-<!-- NEW BLOG -->
-<div class="container">
-  <h2 class="heading">{{ editBlogData ? 'Edit Blog' : 'Add Blog' }}</h2>
+<!-- ================= ADMIN BLOG PAGE ================= -->
 
-  <form class="blog-form" (ngSubmit)="saveBlog()">
-    <input
-      type="text"
-      [(ngModel)]="title"
-      name="title"
-      placeholder="Blog Title"
-      required
-    />
-    <textarea
-      [(ngModel)]="content"
-      name="content"
-      placeholder="Blog Content"
-      required
-    ></textarea>
+<div class="admin-wrapper">
 
-    <div class="form-actions">
-      <button class="btn primary" type="submit">
-        {{ editBlogData ? 'Update Blog' : 'Add Blog' }}
-      </button>
-      <button
-        class="btn secondary"
-        type="button"
-        (click)="resetBlogForm()"
-        *ngIf="editBlogData"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
+  <!-- ========== BLOG SECTION ========== -->
+  <section class="admin-section">
+    <h2 class="section-title">{{ editBlogData ? 'Edit Blog' : 'Add Blog' }}</h2>
 
-<!-- Blog List -->
-<div class="blogs-container">
-  <div *ngFor="let blog of blogs" class="blog-card">
-    <!-- Optional thumbnail -->
-    <!-- <img src="{{blog.thumbnail}}" alt="{{blog.title}}" class="blog-thumbnail" /> -->
+    <form class="form-box" (ngSubmit)="saveBlog()">
+      <input
+        type="text"
+        [(ngModel)]="title"
+        name="title"
+        placeholder="Blog Title"
+        required
+      />
 
-    <div class="blog-content">
-      <h3>{{ blog.title }}</h3>
-      <div class="subtitle">{{ blog.createdAt | date:'mediumDate' }}</div>
+      <textarea
+        [(ngModel)]="content"
+        name="content"
+        placeholder="Blog Content"
+        required
+      ></textarea>
 
-      <p>{{ blog.content | slice:0:150 }}...</p>
-    </div>
+      <div class="form-actions">
+        <button class="btn primary" type="submit">
+          {{ editBlogData ? 'Update' : 'Add' }}
+        </button>
+        <button
+          class="btn secondary"
+          type="button"
+          *ngIf="editBlogData"
+          (click)="resetBlogForm()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
 
-    <div class="blog-actions">
-      <button class="btn secondary" (click)="editBlog(blog)">Edit</button>
-      <button class="btn danger" (click)="deleteBlog(blog.id)">Delete</button>
-    </div>
-  </div>
-</div>
+    <div class="cards-container">
+      <div class="card" *ngFor="let blog of blogs">
+        <h3>{{ blog.title }}</h3>
+        <p class="date">{{ blog.createdAt | date:'mediumDate' }}</p>
+        <p>{{ blog.content | slice:0:120 }}...</p>
 
-<hr />
-
-<!-- QUOTES SECTION -->
-<div class="container">
-  <h2>{{ editQuoteData ? 'Edit Quote' : 'Add Quote' }}</h2>
-  <form class="quote-form" (ngSubmit)="saveQuote()">
-    <input
-      type="text"
-      [(ngModel)]="quoteText"
-      name="quoteText"
-      placeholder="Quote Text"
-      required
-    />
-    <input
-      type="text"
-      [(ngModel)]="quoteAuthor"
-      name="quoteAuthor"
-      placeholder="Author"
-      required
-    />
-
-    <div class="form-actions">
-      <button type="submit" class="btn primary">
-        {{ editQuoteData ? 'Update' : 'Add' }}
-      </button>
-      <button
-        type="button"
-        class="btn secondary"
-        (click)="resetQuoteForm()"
-        *ngIf="editQuoteData"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
-
-<div class="quotes-container">
-  <div class="quote-card" *ngFor="let quote of quotes">
-    <div class="quote-content">
-      <p>{{ quote.text }}</p>
-      <div class="subtitle">- {{ quote.author }}</div>
-      <div class="subtitle">{{ quote.created_at | date:'mediumDate' }}</div>
-    </div>
-    <div class="quote-actions">
-      <button class="btn secondary" (click)="editQuote(quote)">Edit</button>
-      <button class="btn danger" (click)="deleteQuote(quote.id)">Delete</button>
-    </div>
-  </div>
-</div>
-
-<hr />
-<!-- PDF SECTION -->
-<div class="container">
-  <h2>{{ editPdfData ? 'Edit PDF' : 'Add PDF' }}</h2>
-  <form class="blog-form" (ngSubmit)="savePdf()">
-    <input type="text" [(ngModel)]="pdfForm.title" name="title" placeholder="Enter title" required />
-    <input type="text" [(ngModel)]="pdfForm.url" name="url" placeholder="Enter file URL" required />
-
-    <div class="form-actions">
-      <button type="submit" class="btn primary">
-        {{ editPdfData ? 'Update' : 'Add' }}
-      </button>
-      <button type="button" class="btn secondary" (click)="resetPdfForm()">
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
-
-<!-- PDF List -->
-<<div class="blogs-container">
-  <div *ngFor="let file of pdfList" class="blog-card">
-    
-    <div class="blog-content">
-      <h3>{{ file.title }}</h3>
-
-      <div class="subtitle">
-        <ng-container [ngSwitch]="getFileType(file.url)">
-          
-          <!-- PDF -->
-          <a *ngSwitchCase="'PDF'" [href]="file.url" target="_blank" class="pdf-link">📄 View PDF</a>
-
-          <!-- Image -->
-          <a *ngSwitchCase="'Image'" [href]="file.url" target="_blank" class="pdf-link">🖼️ View Image</a>
-
-          <!-- Video -->
-          <a *ngSwitchCase="'Video'" [href]="file.url" target="_blank" class="pdf-link">🎬 View Video</a>
-
-          <!-- Others -->
-          <a *ngSwitchDefault [href]="file.url" target="_blank" class="pdf-link">📁 Open File</a>
-
-        </ng-container>
+        <div class="card-actions">
+          <button class="btn secondary" (click)="editBlog(blog)">Edit</button>
+          <button class="btn danger" (click)="deleteBlog(blog.id)">Delete</button>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="blog-actions">
-      <button class="btn secondary" (click)="editPdf(file)">Edit</button>
-      <button class="btn danger" (click)="deletePdf(file.id!)">Delete</button>
+  <!-- ========== QUOTE SECTION ========== -->
+  <section class="admin-section">
+    <h2 class="section-title">{{ editQuoteData ? 'Edit Quote' : 'Add Quote' }}</h2>
+
+    <form class="form-box" (ngSubmit)="saveQuote()">
+      <input
+        type="text"
+        [(ngModel)]="quoteText"
+        name="quoteText"
+        placeholder="Quote text"
+        required
+      />
+      <input
+        type="text"
+        [(ngModel)]="quoteAuthor"
+        name="quoteAuthor"
+        placeholder="Author"
+        required
+      />
+
+      <div class="form-actions">
+        <button class="btn primary" type="submit">
+          {{ editQuoteData ? 'Update' : 'Add' }}
+        </button>
+        <button
+          class="btn secondary"
+          type="button"
+          *ngIf="editQuoteData"
+          (click)="resetQuoteForm()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="cards-container">
+      <div class="card quote-card" *ngFor="let quote of quotes">
+        <p>"{{ quote.text }}"</p>
+        <span class="author">— {{ quote.author }}</span>
+
+        <div class="card-actions">
+          <button class="btn secondary" (click)="editQuote(quote)">Edit</button>
+          <button class="btn danger" (click)="deleteQuote(quote.id)">Delete</button>
+        </div>
+      </div>
     </div>
+  </section>
 
-  </div>
+  <!-- ========== PDF / FILE SECTION ========== -->
+  <section class="admin-section">
+    <h2 class="section-title">{{ editPdfData ? 'Edit File' : 'Add File' }}</h2>
+
+    <form class="form-box" (ngSubmit)="savePdf()">
+      <input
+        type="text"
+        [(ngModel)]="pdfForm.title"
+        name="pdfTitle"
+        placeholder="File Title"
+        required
+      />
+      <input
+        type="text"
+        [(ngModel)]="pdfForm.url"
+        name="pdfUrl"
+        placeholder="File URL (PDF / Image / Video)"
+        required
+      />
+
+      <div class="form-actions">
+        <button class="btn primary" type="submit">
+          {{ editPdfData ? 'Update' : 'Add' }}
+        </button>
+        <button
+          class="btn secondary"
+          type="button"
+          *ngIf="editPdfData"
+          (click)="resetPdfForm()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="cards-container">
+      <div class="card" *ngFor="let file of pdfList">
+        <h3>{{ file.title }}</h3>
+
+        <a
+          class="file-link"
+          [href]="file.url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ getFileType(file.url) }}
+        </a>
+
+        <div class="card-actions">
+          <button class="btn secondary" (click)="editPdf(file)">Edit</button>
+          <button class="btn danger" (click)="deletePdf(file.id!)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
